@@ -1,41 +1,70 @@
-### **Important Instructions**:  
-- Click on *"Use this template"* button and *"Create a new repository"* in your github account for submission.
-<img width="1262" height="93" alt="Screenshot 2025-08-15 at 5 59 49 AM" src="https://github.com/user-attachments/assets/b72d5afd-ba07-4da1-ac05-a373b3168b6a" />
+# ISAC-Based UAV Parameter Estimation Using 5G NR Waveforms
+SamsungEnnovateX Hackathon 2025
 
-- Add one of the following open source licenses - [MIT](https://opensource.org/licenses/MIT), [Apache 2.0](https://opensource.org/licenses/Apache-2.0) or [BSD 3-Clause](https://opensource.org/licenses/BSD-3-Clause) to your submission repository. 
-- Once your repository is ready for **evaluation** send an email to ennovatex.io@samsung.com with the subject - "AI Challenge Submission - Team name" and the body of the email must contain only the Team Name, Team Leader Name & your GitHub project repository link.
-- All submission project materials outlined below must be added to the github repository and nothing should be attached in the submission email.
-- In case of any query, please feel free to reach out to us at ennovatex.io@samsung.com
+## Team Details
+**Team Name:**
+ TargetLock
+**Members:**
+- Sameer Gautam (24bcs10920)  
+- Yash Sachan (24bcs11126)  
+- Nishita Kumari (24bcs12125)  
+- Priyanshu Choudhary (23bcs12648)
 
-#### Evaluation Criteria
+## Abstract
+This project implements an Integrated Sensing and Communication (ISAC) framework to estimate UAV parameters—range, radial velocity, and direction of arrival (DoA)—using 5G NR OFDM waveforms at 28 GHz (mmWave). We synthesize realistic transmit/receive signals in MATLAB, propagate them through a 3GPP TR 38.901 channel (UMa LoS), and perform Range–Doppler processing and spatial spectrum analysis for DoA. We also generate a labeled dataset and features suitable for downstream machine-learning models. Artifacts include MATLAB simulation code, `.mat` datasets, and a Python-ready export for training in Google Colab.
 
-| Project Aspect | % |
-| --- | --- |
-| Novelty of Approach | 25% |
-| Technical implementation & Documentation | 25% |
-| UI/UX Design or User Interaction Design | 15% |
-| Ethical Considerations & Scalability | 10% |
-| Demo Video (10 mins max) | 25% |
+## Introduction
+Traditional radar and communication subsystems compete for spectrum and hardware resources. ISAC co-designs sensing and communication, enabling efficient spectrum reuse. This project demonstrates ISAC for UAV tracking in simulation using 5G NR-like OFDM signals, realistic channel effects, and array processing, and prepares data for ML-based estimators.
 
-**-------------------------- Your Project README.md should start from here -----------------------------**
+## Project Overview
+**Problem Statement:**  
+- Separate radar/communication systems increase complexity and spectrum usage.  
+- UAV safety and airspace management require accurate, near-real-time estimation of range, velocity, and DoA in challenging channels.
 
-# Samsung EnnovateX 2025 AI Challenge Submission
+**Proposed Solution:**  
+- Generate 5G NR style OFDM at 28 GHz with QPSK, pilots, cyclic prefix.  
+- Propagate through a 3GPP TR 38.901 UMa LoS channel with path loss, delay, and Doppler.  
+- Use multi-antenna reception and spatial processing for DoA.  
+- Build a synthetic dataset across diverse UAV kinematics for ML training.
 
-- **Problem Statement** - *(Must exactly match one of the nine Samsung EnnovateX AI Challenge Problem Statements)*
-- **Team name** - *(As provided during the time of registration)*
-- **Team members (Names)** - *Member 1 Name*, *Member 2 Name*, *Member 3 Name*, *Member 4 Name* 
-- **Demo Video Link** - *(Upload the Demo video on Youtube as a public or unlisted video and share the link. Google Drive uploads or any other uploads are not allowed.)*
+## Technologies Used
+- **Language/Tools:** MATLAB (primary), Google Colab (Python for ML)  
+- **Key MATLAB Functions/Toolboxes:** IFFT/FFT, `pskmod`, `pwelch`, array steering and correlation; optional `rcosdesign` for pulse shaping  
+- **Data Artifacts:** `isac_uav_dataset.mat`, `isac_python_data.mat` (Python-ready)
+
+**Feature Extraction (per scenario):**  
+  - Range features: cross-correlation peak/value and lag  
+  - Velocity features: Doppler spectrum (FFT of correlation) and peak index  
+  - Spatial features: sample covariance terms across Rx channels  
+  - Power/phase summaries across channels  
+  - Range: 100–1000 m  
+  - Velocity: −50 to +50 m/s  
+  - Azimuth: −60° to +60°  
+  - SNR: 20 dB AWGN
+
+**Feature Extraction (per scenario):**  
+  - Range features: cross-correlation peak/value and lag  
+  - Velocity features: Doppler spectrum (FFT of correlation) and peak index  
+  - Spatial features: sample covariance terms across Rx channels  
+  - Power/phase summaries across channels
+**Labels:**
+ `[range, velocity, azimuth]
+<img width="1600" height="1009" alt="image" src="https://github.com/user-attachments/assets/13cf8af8-6d9c-4f6a-82fd-6d629d805a5d" />
+**Visual Layout**
+The frontend is a single, centered web page with a clean, modern design. It uses a soft gray background (#f3f4f6) and a white, rounded card in the middle that contains all the content. The card has a subtle shadow and a hover effect that makes it pop slightly.
+
+Here's a breakdown of the key elements you will see:
+
+Header: A large, bold heading that says "ISAC Parameter Prediction 📡" with a radar dish emoji. Below it is a smaller subtitle explaining the purpose of the app.
+
+Input Form: A simple form with a text input field. The label above the field prompts you to enter 10 numbers separated by commas. The input field itself has a placeholder with an example format.
+
+Prediction Button: A large, indigo-colored button with rounded corners and a slight shadow. The button's text says "Get Prediction."
+
+Results Area: Initially hidden, this section appears after a successful prediction. It contains a "Prediction Results" heading and a gray, rounded container. Inside, it displays the predicted values for Range, Velocity, and Azimuth in a monospaced font to make them stand out.
+
+Message Box: An alert box, also initially hidden, that appears to show either an error message (in red) or a success message (in green) depending on the outcome of the prediction request.
+
+The overall design is fully responsive, meaning it will look good and be easy to use on both mobile phones and desktop computers.
 
 
-### Project Artefacts
-
-- **Technical Documentation** - [Docs](docs) *(All technical details must be written in markdown files inside the docs folder in the repo)*
-- **Source Code** - [Source](src) *(All source code must be added to the src folder in the repo. The code must be capable of being successfully installed/executed and must run consistently on the intended platforms.)*
-- **Models Used** - *(Hugging Face links to all models used in the project. You are permitted to use open weight models.)*
-- **Models Published** - *(In case you have developed a model as a part of your solution, kindly upload it on Hugging Face under appropriate open source license and add the link here.)*
-- **Datasets Used** - *(Links to all datasets used in the project. You are permitted to use publicly available datasets under licenses like Creative Commons, Open Data Commons, or equivalent.)*
-- **Datasets Published** - *(Links to all datasets created for the project and published on Hugging Face. You are allowed to publish any synthetic or proprietary dataset used in their project, but will be responsible for any legal compliance and permission for the same. The dataset can be published under Creative Commons, Open Data Commons, or equivalent license.)*
-
-### Attribution 
-
-In case this project is built on top of an existing open source project, please provide the original project link here. Also, mention what new features were developed. Failing to attribute the source projects may lead to disqualification during the time of evaluation.
